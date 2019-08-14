@@ -1,0 +1,14 @@
+version: 1.0
+shards:
+  camel_yaml:
+    github: mosop/camel_yaml
+    version: 0.2.2
+
+  clim:
+    github: at-grandpa/clim
+    version: 0.8.1
+
+  front_matter:
+    github: chris-huxtable/front_matter.cr
+    version: 0.1.1
+

@@ -1,0 +1,20 @@
+name: froprepro
+version: 0.1.0
+
+authors:
+  - Pim Snel <pim@lingewoud.nl>
+
+targets:
+  froprepro:
+    main: src/froprepro.cr
+
+crystal: 0.30.1
+
+license: MIT
+
+dependencies:
+  clim:
+    github: at-grandpa/clim
+    version: 0.8.1
+  front_matter:
+    github: chris-huxtable/front_matter.cr
