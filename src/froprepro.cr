@@ -40,8 +40,39 @@ module Froprepro
         end
       end
 
+      sub "rename_taxo_key_in_file" do
+        desc "rename a taxo string val"
+        option "-d", "--dryrun", type: Bool, desc: "Dry run. Output only"
+        usage "froprepro rename_taxo_key_in_file [taxo_key_old] [taxo_key_new] [MARKDOWN FILE]"
+        run do |opts, args|
+          if args.size == 3
+            fs_processor = FSProcessor.new(opts.dryrun)
+            fs_processor.rename_taxo_key_in_file(args[2], args[0], args[1])
+          else
+            puts opts.help_string
+          end
+        end
+      end
+
+      sub "rename_taxo_val_in_file" do
+        desc "rename a taxo string val"
+        option "-d", "--dryrun", type: Bool, desc: "Dry run. Output only"
+        usage "froprepro rename_taxo_val_in_file [taxo_key] [taxo_val_old] [taxo_val_new] [MARKDOWN FILE]"
+        run do |opts, args|
+          if args.size == 4
+            fs_processor = FSProcessor.new(opts.dryrun)
+            fs_processor.rename_taxo_val_in_file(args[3], args[0], args[1], args[2])
+          else
+            puts opts.help_string
+          end
+        end
+      end
+
     end
+
+
   end
+
 end
 
 Froprepro::Cli.start(ARGV)

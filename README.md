@@ -1,4 +1,4 @@
-# Froprepro of Frop
+# Froprepro of Frop of Front Mess
 
 Frop is een preprocessor voor de YAML in front matter. Frop kan met behulp van
 stringformatering, waarden binnen een YAML-document vervangen.
