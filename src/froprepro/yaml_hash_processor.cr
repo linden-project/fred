@@ -24,8 +24,6 @@ class YamlHashProcessor
     end
   end
 
-
-
   def process_node_replace_vars( node : YAML::Any)
 
     case node.raw
@@ -139,15 +137,5 @@ class YamlHashProcessor
 
     node
   end
-
-
-
-
-
-
-
-
-
-
 
 end
