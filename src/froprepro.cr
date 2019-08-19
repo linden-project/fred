@@ -79,4 +79,6 @@ module Froprepro
 
 end
 
-Froprepro::Cli.start(ARGV) unless TESTING
+{% if ! @type.has_constant? "TESTING" %}
+  Froprepro::Cli.start(ARGV)
+{% end %}

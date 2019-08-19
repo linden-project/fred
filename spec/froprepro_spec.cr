@@ -5,7 +5,7 @@ describe Froprepro do
   it "should rename tax val in a single file" do
 
     tempfile = Random::Secure.urlsafe_base64(4)
-    FileUtils.cp "./spec/testfiles/markdown_1.md", tempfile
+    FileUtils.cp "./spec/testfiles/markdown_2.md", tempfile
 
     dryrun = false
     recursive = false
