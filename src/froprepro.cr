@@ -79,4 +79,4 @@ module Froprepro
 
 end
 
-Froprepro::Cli.start(ARGV)
+Froprepro::Cli.start(ARGV) unless TESTING
