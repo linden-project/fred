@@ -44,12 +44,13 @@ module Froprepro
         desc "rename a taxo string val"
         option "-d", "--dryrun", type: Bool, desc: "Dry run. Output only"
         option "-r", "--recursive", type: Bool, desc: "Path is a directory. All .md files in the directory will be processed"
+        option "-v", "--verbose", type: Bool, desc: "Be verbose"
         usage "froprepro rename_taxo_key [taxo_key_old] [taxo_key_new] [PATH]"
 
         run do |opts, args|
 
          if args.size == 3
-           fs_processor = FSProcessor.new(opts.dryrun, opts.recursive)
+           fs_processor = FSProcessor.new(opts.dryrun, opts.recursive, opts.verbose)
            fs_processor.rename_taxo_key(args[2], args[0], args[1])
          else
            puts opts.help_string
@@ -62,11 +63,12 @@ module Froprepro
         desc "rename a taxo string val in a single file"
         option "-d", "--dryrun", type: Bool, desc: "Dry run. Output only"
         option "-r", "--recursive", type: Bool, desc: "Path is a directory. All .md files in the directory will be processed"
+        option "-v", "--verbose", type: Bool, desc: "Be verbose"
         usage "froprepro rename_taxo_val [taxo_key] [taxo_val_old] [taxo_val_new] [PATH]"
 
         run do |opts, args|
           if args.size == 4
-            fs_processor = FSProcessor.new(opts.dryrun, opts.recursive)
+            fs_processor = FSProcessor.new(opts.dryrun, opts.recursive, opts.verbose)
             fs_processor.rename_taxo_val(args[3], args[0], args[1], args[2])
           else
             puts opts.help_string
@@ -76,7 +78,6 @@ module Froprepro
       end
     end
   end
-
 end
 
 {% if ! @type.has_constant? "TESTING" %}

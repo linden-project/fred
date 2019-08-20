@@ -1,6 +1,6 @@
 class FSProcessor
 
-  def initialize(dryrun, recursive)
+  def initialize(dryrun, recursive, verbose)
 
     @recursive = false
     @recursive= recursive
@@ -8,6 +8,8 @@ class FSProcessor
     @dryrun = false
     @dryrun = dryrun
 
+    @verbose = false
+    @verbose = verbose
   end
 
   def validate_path_with_option(path)
@@ -73,14 +75,13 @@ class FSProcessor
      if @dryrun
         markdown_doc.dump_markdown
       else
-        puts "changing original file"
        write_to_file(in_file, markdown_doc.markdown_string)
       end
     end
   end
 
   def write_to_file(out_file, contents)
-    puts "changing original file: " + out_file
+    puts "changing original file: " + out_file if @verbose
     out_file = File.expand_path(out_file)
     file_h = File.open out_file, "w"
     file_h.puts contents
