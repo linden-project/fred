@@ -16,10 +16,10 @@ describe Froprepro do
 
     dryrun = false
     recursive = false
-    verbose = false
+    verbose = true
 
     fs_processor = FSProcessor.new(dryrun, recursive, verbose)
-    fs_processor.rename_taxo_val(tempfile, "key1", "val_old", "val_new")
+    #fs_processor.rename_taxo_val(tempfile, "key1", "val_old", "val_new")
     fs_processor.rename_taxo_key(tempfile, "key2", "key2new")
 
     content_new = File.read(tempfile)
@@ -48,7 +48,7 @@ describe Froprepro do
     FileUtils.rm_r(tempfile)
   end
 
-  it "should NOT rename tax key and vals in a single file" do
+  it "should NOT rename tax key and vals in a directory" do
     tempfile = temp_filename
 
     FileUtils.cp_r "./spec/testfiles", tempfile
