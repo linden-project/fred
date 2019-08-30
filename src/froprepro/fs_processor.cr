@@ -1,8 +1,8 @@
 class FSProcessor
 
-  getter doc_changed
+  def initialize(path, dryrun, recursive, verbose)
 
-  def initialize(dryrun, recursive, verbose)
+    @changed_docs_num = 0
 
     @recursive = false
     @recursive= recursive
@@ -13,7 +13,9 @@ class FSProcessor
     @verbose = false
     @verbose = verbose
 
-    @changed_docs_num = 0
+    @files = [] of String
+    @files = validate_path_with_option(path)
+
   end
 
   def validate_path_with_option(path)
@@ -29,10 +31,21 @@ class FSProcessor
     end
   end
 
-  def rename_taxo_key(path, key_old, key_new)
-    files = validate_path_with_option(path)
+  def replace_1st_level_vars
+    @files.each do | in_file |
+      begin
+        replace_1st_level_vars_in_file(in_file)
+      rescue
+        p in_file + " has invalid Front Matter."
+      end
+    end
 
-    files.each do | in_file |
+    report_command_stats if @verbose
+  end
+
+
+  def rename_taxo_key(key_old, key_new)
+    @files.each do | in_file |
       begin
         rename_taxo_key_in_file(in_file, key_old, key_new)
       rescue
@@ -43,10 +56,9 @@ class FSProcessor
     report_command_stats if @verbose
   end
 
-  def rename_taxo_val(path, key, val_old, val_new)
-    files = validate_path_with_option(path)
+  def rename_taxo_val(key, val_old, val_new)
 
-    files.each do | in_file |
+    @files.each do | in_file |
       begin
         in_file = File.expand_path(in_file)
 
@@ -60,19 +72,25 @@ class FSProcessor
     end
   end
 
-  def rename_taxo_key_in_file(in_file, key_old, key_new)
+  private def replace_1st_level_vars_in_file(in_file)
+    markdown_doc = MarkdownDoc.new(in_file)
+    markdown_doc.replace_1st_level_frontmatter_variables
+    output_markdown_doc(in_file, markdown_doc)
+  end
+
+  private def rename_taxo_key_in_file(in_file, key_old, key_new)
     markdown_doc = MarkdownDoc.new(in_file)
     markdown_doc.rename_taxo_key(key_old, key_new)
     output_markdown_doc(in_file, markdown_doc)
   end
 
-  def rename_taxo_val_in_file(in_file, key, val_old, val_new)
+  private def rename_taxo_val_in_file(in_file, key, val_old, val_new)
     markdown_doc = MarkdownDoc.new(in_file)
     markdown_doc.rename_taxo_val(key, val_old, val_new)
     output_markdown_doc(in_file, markdown_doc)
   end
 
-  def output_markdown_doc(in_file, markdown_doc)
+  private def output_markdown_doc(in_file, markdown_doc)
     if markdown_doc.changed
       if @dryrun
         markdown_doc.dump_markdown
@@ -84,7 +102,7 @@ class FSProcessor
     end
   end
 
-  def write_to_file(out_file, contents)
+  private def write_to_file(out_file, contents)
     puts "changing original file: " + out_file if @verbose
     out_file = File.expand_path(out_file)
     file_h = File.open out_file, "w"
@@ -92,7 +110,7 @@ class FSProcessor
     file_h.close
   end
 
-  def report_command_stats
+  private def report_command_stats
     print "Stats for command:\n"
     print "  Changed files: " + @changed_docs_num.to_s + "\n"
   end

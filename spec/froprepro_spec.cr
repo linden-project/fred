@@ -18,9 +18,9 @@ describe Froprepro do
     recursive = false
     verbose = true
 
-    fs_processor = FSProcessor.new(dryrun, recursive, verbose)
-    fs_processor.rename_taxo_val(tempfile, "key1", "val_old", "val_new")
-    fs_processor.rename_taxo_key(tempfile, "key2", "key2new")
+    fs_processor = FSProcessor.new(tempfile, dryrun, recursive, verbose)
+    fs_processor.rename_taxo_val( "key1", "val_old", "val_new")
+    fs_processor.rename_taxo_key( "key2", "key2new")
 
     content_new = File.read(tempfile)
     content_new.includes?("val_new").should eq(true)
@@ -37,9 +37,9 @@ describe Froprepro do
     recursive = true
     verbose = false
 
-    fs_processor = FSProcessor.new(dryrun, recursive, verbose)
-    fs_processor.rename_taxo_val(tempfile, "key1", "val_old", "val_new")
-    fs_processor.rename_taxo_key(tempfile, "key2", "key2new")
+    fs_processor = FSProcessor.new(tempfile, dryrun, recursive, verbose)
+    fs_processor.rename_taxo_val("key1", "val_old", "val_new")
+    fs_processor.rename_taxo_key("key2", "key2new")
 
     content_new = File.read(tempfile + "/markdown_2.md")
     content_new.includes?("val_new").should eq(true)
@@ -57,9 +57,9 @@ describe Froprepro do
     recursive = true
     verbose = false
 
-    fs_processor = FSProcessor.new(dryrun, recursive, verbose)
-    fs_processor.rename_taxo_val(tempfile, "key1", "val_old", "val_new")
-    fs_processor.rename_taxo_key(tempfile, "key2", "key2new")
+    fs_processor = FSProcessor.new(tempfile, dryrun, recursive, verbose)
+    fs_processor.rename_taxo_val("key1", "val_old", "val_new")
+    fs_processor.rename_taxo_key("key2", "key2new")
 
     content_new = File.read(tempfile + "/markdown_2.md")
     content_new.includes?("val_new").should eq(false)
@@ -67,19 +67,24 @@ describe Froprepro do
     FileUtils.rm_r(tempfile)
   end
 
-  it "should write to file" do
-    dryrun = false
-    recursive = false
-    verbose = false
-
+  it "should replace variables on inside values that contain $FORMAT" do
     tempfile = temp_filename
-    contents = "some content\n"
-    fs_processor = FSProcessor.new(dryrun, recursive, verbose)
-    fs_processor.write_to_file(tempfile, contents)
 
-    file_content = File.read(tempfile)
-    file_content.should eq(contents)
-    FileUtils.rm(tempfile)
+    FileUtils.cp_r "./spec/testfiles", tempfile
+
+    dryrun = false
+    recursive = true
+    verbose = true
+
+    fs_processor = FSProcessor.new(tempfile, dryrun, recursive, verbose)
+    fs_processor.replace_1st_level_vars
+
+    content_new = File.read(tempfile + "/markdown_4.md")
+    puts content_new
+    content_new.includes?("  key3.1: This file was written by Mad John.").should eq(true)
+    content_new.includes?("key4: yeah baby!").should eq(true)
+
+    FileUtils.rm_r(tempfile)
   end
 
 #  it "should test command line rename_taxo_key" do

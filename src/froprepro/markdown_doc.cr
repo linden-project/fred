@@ -29,7 +29,8 @@ class MarkdownDoc
 
   def replace_1st_level_frontmatter_variables
       yaml_processor = YamlHashProcessor.new(@front_matter_as_yaml)
-      @front_matter_as_yaml = yaml_processor.process_node_replace_vars(@front_matter_as_yaml)
+      yaml_processor.process_node_replace_vars
+      store_process_data(yaml_processor)
   end
 
   def rename_taxo_key(taxo_key_old, taxo_key_new)
