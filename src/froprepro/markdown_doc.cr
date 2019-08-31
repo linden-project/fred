@@ -55,8 +55,37 @@ class MarkdownDoc
     end
   end
 
+  private def workaround_for_unicode_bug(in_string)
+    in_string = in_string.gsub("\\xA9", "©")
+
+    in_string = in_string.gsub("\\xE9", "é")
+    in_string = in_string.gsub("\\xE8", "è")
+    in_string = in_string.gsub("\\xEB", "ë")
+    in_string = in_string.gsub("\\xEA", "ê")
+
+    in_string = in_string.gsub("\\xFB", "û")
+    in_string = in_string.gsub("\\xFC", "ü")
+    in_string = in_string.gsub("\\xFA", "ú")
+
+    in_string = in_string.gsub("\\xEF", "ï")
+    in_string = in_string.gsub("\\xEE", "î")
+
+    in_string = in_string.gsub("\\xE2", "â")
+    in_string = in_string.gsub("\\xE1", "á")
+    in_string = in_string.gsub("\\xE4", "ä")
+    in_string = in_string.gsub("\\xE0", "à")
+
+    in_string = in_string.gsub("\\xF3", "ó")
+    in_string = in_string.gsub("\\xF2", "ò")
+    in_string = in_string.gsub("\\xF6", "ö")
+    in_string = in_string.gsub("\\xF4", "ô")
+
+    in_string = in_string.gsub("\\xE7", "ç")
+    in_string
+  end
+
   def front_matter_string
-    @front_matter_as_yaml.to_yaml + "---\n"
+    workaround_for_unicode_bug(@front_matter_as_yaml.to_yaml)
   end
 
   def report_doc_stats
