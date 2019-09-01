@@ -21,3 +21,28 @@ desc "release"
 task :release do
   puts "you should execute: crelease x.x.x"
 end
+
+desc "update and copy and git push brew_formula"
+task :brew_formula do
+
+  require 'yaml'
+  require 'erb'
+
+  shard = YAML.load_file('shard.yml')
+
+  system("cd /tmp && wget https://github.com/mipmip/fred/archive/v#{shard['version']}.tar.gz")
+  sha = `shasum --algorithm 256 /tmp/v#{shard['version']}.tar.gz|cut -d" " -f1`.gsub("\n","")
+
+  template = File.read('brew/fred.rb.erb')
+  namespace = OpenStruct.new(
+    sha: sha,
+    desc: shard['desc'],
+    version: shard['version']
+  )
+
+  result = ERB.new(template).result(namespace.instance_eval { binding })
+  File.open("/Users/pim/RnD/homebrew-crystal/fred.rb", 'w') { |file| file.write(result)}
+
+  system("cd ~/RnD/homebrew-crystal && git commit -m 'Fred release #{shard['version']}' -a && git push")
+
+end

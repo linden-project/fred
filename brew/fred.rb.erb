@@ -1,0 +1,13 @@
+class Fred < Formula
+  desc "Fred, a front matter editor"
+  version "<%= version %>"
+  homepage "https://github.com/mipmip/fred"
+  url "https://github.com/mipmip/fred/archive/v#{version}.tar.gz"
+  sha256 "<%= sha %>"
+  depends_on "crystal-lang"
+
+  def install
+    system "shards install && rake build"
+    bin.install "bin/fred"
+  end
+end
