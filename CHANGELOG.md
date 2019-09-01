@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Fred 0.3.0 - Sep 1
+
+- remame to Fred
+- travis ci
+- documentation in Engels
+- update readme
+
 ## Froprepro 0.2.2-0.2.5 - Sep 1
 - only write modified files
 - report changes

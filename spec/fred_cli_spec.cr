@@ -1,9 +1,4 @@
 require "./spec_helper"
-p "cli"
-
-def temp_filename
-  Random::Secure.urlsafe_base64(4) + ".tmp"
-end
 
 describe Fred do
   #  it "should test command line rename_taxo_key" do

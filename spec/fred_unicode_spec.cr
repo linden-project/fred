@@ -1,10 +1,6 @@
 require "./spec_helper"
 p "unicode"
 
-def temp_filename
-  Random::Secure.urlsafe_base64(4) + ".tmp"
-end
-
 describe Fred do
   it "should print VERSION" do
     puts Fred::VERSION

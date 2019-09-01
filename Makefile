@@ -11,10 +11,10 @@ run:
 	$(OUT_DIR)/fred
 
 clean:
-	rm -rf  bin/fred* docs tmp
+	rm -rf  bin/fred* docs tmp *.dwarf *.tmp
 
 clean_all:
-	rm -rf  $(OUT_DIR) .crystal .shards lib docs tmp
+	rm -rf  $(OUT_DIR) .crystal .shards lib docs tmp *.dwarf *.tmp
 
 link:
 	@ln -s `pwd`/bin/fred /usr/local/bin/fred
