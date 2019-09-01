@@ -7,7 +7,7 @@ class Fred < Formula
   depends_on "crystal-lang"
 
   def install
-    system "shards install && rake build"
+    system "shards install && make"
     bin.install "bin/fred"
   end
 end
