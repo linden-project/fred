@@ -27,6 +27,11 @@ task :run do
   puts "you should execute: #{CRYSTAL_BIN} run src/#{PRODUCT_NAME}.cr"
 end
 
+desc "release"
+task :release do
+  puts "you should execute: crelease x.x.x"
+end
+
 desc "spec"
 task :spec do
   system "#{CRYSTAL_BIN} spec"
