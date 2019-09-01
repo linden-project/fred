@@ -1,63 +1,92 @@
-# Fred of Fred of Front Mess
+# Fred, a front matter cli editor
 
-Fred is een preprocessor voor de YAML in front matter. Fred kan met behulp van
-stringformatering, waarden binnen een YAML-document vervangen.
+[![GitHub release](https://img.shields.io/github/release/mipmip/fred.svg)](https://github.com/mipmip/fred/releases)
+[![Build Status](https://travis-ci.org/mipmip/fred.svg?branch=master)](https://travis-ci.org/mipmip/fred)
 
-De YAML-keys van het eerste niveau zijn de variabelen. Deze kunnen in diepere
-lagen van de front matter worden hergebruikt als waarde of om een string mee
-samen te stellen.
+Fred is a cli utility for precisely editing YAML-nodes inside the front matter
+of a markdown file.
 
-Zie het voorbeeld hieronder:
-
-```markdown
----
-title: Dit is een blog
-categorie: Programmeertalen
-datum: 15 augustus 2019
-metainformatie:
-  abstract: $FORMAT Dit blog is geschreven op {datum} in de categorie '{categorie}'.
-  file_name_pdf: $FORMAT /Users/mipmip/{datum}-{title}.pdf
----
-
-Een blog over programmeertalen ...
-```
-
-Nadat de preprocessor is uitgevoerd ziet het markdown-bestand er zo uit:
-
-```markdown
----
-title: Dit is een blog
-categorie: Programmeertalen
-datum: 15 augustus 2019
-metainformatie:
-  abstract: Dit blog is geschreven op 15 augustus 2019 in de categorie 'Programmeertalen'.
-  file_name_pdf: /Users/mipmip/15 augustus 2019-Dit is een blog.pdf
----
-
-Een blog over programmeertalen ...
-```
-
-# Gebruik
-
-```
-fred file_in.md > file_out.md
-```
-
-## Integratie in Vim met Pandocomatic
-
-```
-nmap ,t :AsyncRun /usr/bin/fred proc % > /tmp/pandotemp.md && rvm 2.5.1 do pandocomatic -b -i /tmp/pandotemp.md<CR>
-```
-
-# fred
-
-TODO: Write a description here
+## Features
+- Rename the key of a scalar node
+- Replace value of scalar node
+- Scaler node at 1st level are automatically defined as variable
+- Substitute variables inside scalar node when it's defined lines earlier
 
 ## Installation
 
-TODO: Write installation instructions here
+<!--
+### With Homebrew
+
+1. brew install mipmip/homebrew-crystal/crelease
+-->
+
+### From Source
+
+1. git clone https://github.com/mipmip/fred
+1. cd fred
+1. rake build
 
 ## Usage
+
+```bash
+  Usage:
+
+    fred help
+
+  Options:
+
+    --help                           Show this help.
+    -d, --dryrun                     Dry run. Output only [type:Bool]
+    -r, --recursive                  Path is a directory. All .md files in the directory will be processed [type:Bool]
+    -v, --verbose                    Be verbose [type:Bool]
+
+  Sub Commands:
+
+    version                  version
+    replace_1st_level_vars   replace 1st level variables in inside the front matter
+    rename_taxo_key          rename a taxo string val
+    rename_taxo_val          rename a taxo string val in a single file
+```
+
+## Variable usage
+Every scalar node as 1st level can be used as replace value inside lower of
+deeper scalar values. See example:
+
+You have a file *crystal-rules.md* with the following contents.
+
+```markdown
+---
+title: Crystal Rules
+category: Programming languages
+date: "15 august 2019"
+meta_info:
+  abstract: $FORMAT This post is is written on {date} in the category {category}.
+  file_name_pdf: $FORMAT /Users/mipmip/{date}-{title}.pdf
+---
+
+Did I tell you ...
+```
+
+When you run ````fred replace_1st_level_vars```` the file will look like this:
+
+```markdown
+---
+title: Crystal Rules
+category: Programming languages
+date: "15 august 2019"
+meta_info:
+  abstract: This post is is written on 15 august in the category Programming Languages.
+  file_name_pdf: $FORMAT /Users/mipmip/15 august-Crystal Rules.pdf
+---
+
+Did I tell you ...
+```
+
+## Example integration in Vim with Pandocomatic
+
+```
+nmap ,t :AsyncRun /usr/bin/fred replace_1st_level_vars -d % > /tmp/pandotemp.md && rvm 2.5.1 do pandocomatic -b -i /tmp/pandotemp.md<CR>
+```
 
 ## Syntax
 
@@ -67,7 +96,18 @@ TODO: Write installation instructions here
 
 ## Development
 
-TODO: Write development instructions here
+### Run Specs
+
+```
+rake spec
+```
+
+### Build
+
+```
+rake build
+```
+
 
 ## Contributing
 
