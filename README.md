@@ -1,6 +1,6 @@
-# Froprepro of Frop of Front Mess
+# Fred of Fred of Front Mess
 
-Frop is een preprocessor voor de YAML in front matter. Frop kan met behulp van
+Fred is een preprocessor voor de YAML in front matter. Fred kan met behulp van
 stringformatering, waarden binnen een YAML-document vervangen.
 
 De YAML-keys van het eerste niveau zijn de variabelen. Deze kunnen in diepere
@@ -40,16 +40,16 @@ Een blog over programmeertalen ...
 # Gebruik
 
 ```
-frop file_in.md > file_out.md
+fred file_in.md > file_out.md
 ```
 
 ## Integratie in Vim met Pandocomatic
 
 ```
-nmap ,t :AsyncRun /usr/bin/frop proc % > /tmp/pandotemp.md && rvm 2.5.1 do pandocomatic -b -i /tmp/pandotemp.md<CR>
+nmap ,t :AsyncRun /usr/bin/fred proc % > /tmp/pandotemp.md && rvm 2.5.1 do pandocomatic -b -i /tmp/pandotemp.md<CR>
 ```
 
-# froprepro
+# fred
 
 TODO: Write a description here
 
@@ -63,7 +63,7 @@ TODO: Write installation instructions here
 
 | Tag     | Arguments     | Example             | Description                                                                                                       |
 |---------|---------------|---------------------|-------------------------------------------------------------------------------------------------------------------|
-| $FORMAT | Format string | !Format {foo} {bar} | Replaces ````{foo}```` and ````{bar}```` with the values of the 1st level yaml keys ````foo:```` and ````bar:```` |
+| $FORMAT | Format string | !Format {foo} {bar} | Replaces ```{foo}``` and ```{bar}``` with the values of the 1st level yaml keys ```foo:``` and ```bar:```         |
 
 ## Development
 
@@ -71,7 +71,7 @@ TODO: Write development instructions here
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/froprepro/fork>)
+1. Fork it (<https://github.com/your-github-user/fred/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -79,4 +79,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [Pim Snel](https://github.com/your-github-user) - creator and maintainer
+- [Pim Snel](https://github.com/mipmip) - creator and maintainer

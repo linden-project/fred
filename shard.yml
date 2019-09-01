@@ -1,12 +1,12 @@
-name: froprepro
+name: fred
 version: 0.2.5
 
 authors:
   - Pim Snel <pim@lingewoud.nl>
 
 targets:
-  froprepro:
-    main: src/froprepro.cr
+  fred:
+    main: src/fred.cr
 
 crystal: 0.30.1
 

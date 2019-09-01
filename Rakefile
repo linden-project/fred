@@ -1,6 +1,6 @@
 require 'rake/clean'
 
-PRODUCT_NAME="froprepro"
+PRODUCT_NAME="fred"
 
 if ENV.key?('CRYSTAL_BIN')
   _crystal_path = `#{ENV['CRYSTAL_BIN']} env | grep CRYSTAL_PATH | cut -d'"' -f2`.gsub("\n",'')
