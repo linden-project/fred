@@ -5,10 +5,10 @@ def temp_filename
   Random::Secure.urlsafe_base64(4) + ".tmp"
 end
 
-describe Froprepro do
+describe Fred do
 
   it "should print VERSION" do
-    puts Froprepro::VERSION
+    puts Fred::VERSION
   end
 
   it "should rename tax key and vals in a single file" do

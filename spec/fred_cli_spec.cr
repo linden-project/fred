@@ -5,13 +5,13 @@ def temp_filename
   Random::Secure.urlsafe_base64(4) + ".tmp"
 end
 
-describe Froprepro do
+describe Fred do
 #  it "should test command line rename_taxo_key" do
 #
 #    tempfile = temp_filename
 #    FileUtils.cp "./spec/testfiles/markdown_2.md", tempfile
 #
-#    command = "/usr/local/bin/crystal run ./src/froprepro.cr rename_taxo_key key1 key13new " + tempfile
+#    command = "/usr/local/bin/crystal run ./src/fred.cr rename_taxo_key key1 key13new " + tempfile
 #    #io = IO::Memory.new
 #
 #    cmd = "sh"

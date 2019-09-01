@@ -1,26 +1,26 @@
 require "clim"
 require "front_matter"
 require "yaml"
-require "./froprepro/*"
+require "./fred/*"
 
 WORKAROUND_YAML_UNICODE_BUG = true
 
-module Froprepro
+module Fred
 
   class Cli < Clim
 
     main do
       desc "help"
-      usage "froprepro help"
+      usage "fred help"
       run do |opts, args|
         puts opts.help_string
       end
 
       sub "version" do
         desc "version"
-        usage "froprepro version"
+        usage "fred version"
         run do |opts, args|
-          puts Froprepro::VERSION
+          puts Fred::VERSION
         end
       end
 
@@ -31,7 +31,7 @@ module Froprepro
         option "-r", "--recursive", type: Bool, desc: "Path is a directory. All .md files in the directory will be processed"
         option "-v", "--verbose", type: Bool, desc: "Be verbose"
 
-        usage "froprepro replace_1st_level_vars [PATH]"
+        usage "fred replace_1st_level_vars [PATH]"
         run do |opts, args|
 
           if args.size == 1
@@ -51,7 +51,7 @@ module Froprepro
         option "-r", "--recursive", type: Bool, desc: "Path is a directory. All .md files in the directory will be processed"
         option "-v", "--verbose", type: Bool, desc: "Be verbose"
 
-        usage "froprepro rename_taxo_key [taxo_key_old] [taxo_key_new] [PATH]"
+        usage "fred rename_taxo_key [taxo_key_old] [taxo_key_new] [PATH]"
 
         run do |opts, args|
 
@@ -71,7 +71,7 @@ module Froprepro
         option "-d", "--dryrun", type: Bool, desc: "Dry run. Output only"
         option "-r", "--recursive", type: Bool, desc: "Path is a directory. All .md files in the directory will be processed"
         option "-v", "--verbose", type: Bool, desc: "Be verbose"
-        usage "froprepro rename_taxo_val [taxo_key] [taxo_val_old] [taxo_val_new] [PATH]"
+        usage "fred rename_taxo_val [taxo_key] [taxo_val_old] [taxo_val_new] [PATH]"
 
         run do |opts, args|
           if args.size == 4
@@ -89,5 +89,5 @@ module Froprepro
 end
 
 {% if ! @type.has_constant? "TESTING" %}
-  Froprepro::Cli.start(ARGV)
+  Fred::Cli.start(ARGV)
 {% end %}
