@@ -3,8 +3,8 @@ require 'rake/clean'
 PRODUCT_NAME="froprepro"
 
 if ENV.key?('CRYSTAL_BIN')
-  _crystal_path = `./crystal env | grep CRYSTAL_PATH | cut -d'"' -f2`
-  CRYSTAL_BIN = "CRYSTAL_PATH=\"#{_crystal_path}:lib\" #{ENV['CRYSTAL_BIN']}"
+  _crystal_path = `#{ENV['CRYSTAL_BIN']} env | grep CRYSTAL_PATH | cut -d'"' -f2`.gsub("\n",'')
+  CRYSTAL_BIN = 'CRYSTAL_PATH="' + _crystal_path + ':lib" ' + ENV['CRYSTAL_BIN']
 else
   CRYSTAL_BIN = 'crystal'
 end
