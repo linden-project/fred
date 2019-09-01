@@ -6,9 +6,7 @@ require "./fred/*"
 WORKAROUND_YAML_UNICODE_BUG = true
 
 module Fred
-
   class Cli < Clim
-
     main do
       desc "help"
       usage "fred help"
@@ -33,7 +31,6 @@ module Fred
 
         usage "fred replace_1st_level_vars [PATH]"
         run do |opts, args|
-
           if args.size == 1
             path = args[0]
             fs_processor = FSProcessor.new(path, opts.dryrun, opts.recursive, opts.verbose)
@@ -54,15 +51,13 @@ module Fred
         usage "fred rename_taxo_key [taxo_key_old] [taxo_key_new] [PATH]"
 
         run do |opts, args|
-
-         if args.size == 3
-           path = args[2]
-           fs_processor = FSProcessor.new(path, opts.dryrun, opts.recursive, opts.verbose)
-           fs_processor.rename_taxo_key( args[0], args[1] )
-         else
-           puts opts.help_string
-         end
-
+          if args.size == 3
+            path = args[2]
+            fs_processor = FSProcessor.new(path, opts.dryrun, opts.recursive, opts.verbose)
+            fs_processor.rename_taxo_key(args[0], args[1])
+          else
+            puts opts.help_string
+          end
         end
       end
 
@@ -82,12 +77,11 @@ module Fred
             puts opts.help_string
           end
         end
-
       end
     end
   end
 end
 
-{% if ! @type.has_constant? "TESTING" %}
+{% if !@type.has_constant? "TESTING" %}
   Fred::Cli.start(ARGV)
 {% end %}
