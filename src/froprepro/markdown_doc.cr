@@ -85,7 +85,11 @@ class MarkdownDoc
   end
 
   def front_matter_string
-    workaround_for_unicode_bug(@front_matter_as_yaml.to_yaml)
+    if(WORKAROUND_YAML_UNICODE_BUG)
+      workaround_for_unicode_bug(@front_matter_as_yaml.to_yaml)
+    else
+      @front_matter_as_yaml.to_yaml
+    end
   end
 
   def report_doc_stats

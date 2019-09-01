@@ -3,6 +3,8 @@ require "front_matter"
 require "yaml"
 require "./froprepro/*"
 
+WORKAROUND_YAML_UNICODE_BUG = false
+
 module Froprepro
 
   class Cli < Clim
@@ -75,7 +77,7 @@ module Froprepro
           if args.size == 4
             path = args[3]
             fs_processor = FSProcessor.new(path, opts.dryrun, opts.recursive, opts.verbose)
-            fs_processor.rename_taxo_val(args[3], args[0], args[1], args[2])
+            fs_processor.rename_taxo_val(args[0], args[1], args[2])
           else
             puts opts.help_string
           end
