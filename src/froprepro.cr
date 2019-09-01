@@ -3,7 +3,7 @@ require "front_matter"
 require "yaml"
 require "./froprepro/*"
 
-WORKAROUND_YAML_UNICODE_BUG = false
+WORKAROUND_YAML_UNICODE_BUG = true
 
 module Froprepro
 
