@@ -24,7 +24,7 @@ end
 
 desc "run"
 task :run do
-  system "#{CRYSTAL_BIN} run src/#{PRODUCT_NAME}.cr"
+  puts "you should execute: #{CRYSTAL_BIN} run src/#{PRODUCT_NAME}.cr"
 end
 
 desc "spec"
