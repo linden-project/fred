@@ -10,6 +10,7 @@ else
 end
 
 CLEAN.include 'coverage'
+CLEAN.include 'docs'
 CLEAN.include '*.tmp'
 CLEAN.include '*.dwarf'
 CLEAN.include PRODUCT_NAME
