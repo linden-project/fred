@@ -11,7 +11,10 @@ run:
 	$(OUT_DIR)/fred
 
 clean:
-	rm -rf  $(OUT_DIR) .crystal .shards libs lib docs
+	rm -rf  bin/fred* docs tmp
+
+clean_all:
+	rm -rf  $(OUT_DIR) .crystal .shards lib docs tmp
 
 link:
 	@ln -s `pwd`/bin/fred /usr/local/bin/fred
@@ -19,3 +22,12 @@ link:
 force_link:
 	@echo "Symlinking `pwd`/bin/fred to /usr/local/bin/fred"
 	@ln -sf `pwd`/bin/fred /usr/local/bin/fred
+
+run_coverage:
+	@bin/crystal-coverage spec/spec_all.cr
+
+run_spec:
+	@crystal spec
+
+release:
+	@echo "you should execute: crelease x.x.x"
