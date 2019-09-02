@@ -81,9 +81,9 @@ class MarkdownDoc
 
   def front_matter_string
     if (WORKAROUND_YAML_UNICODE_BUG)
-      workaround_for_unicode_bug(@front_matter_as_yaml.to_yaml)
+      workaround_for_unicode_bug(@front_matter_as_yaml.to_yaml) + "---\n"
     else
-      @front_matter_as_yaml.to_yaml
+      @front_matter_as_yaml.to_yaml + "---\n"
     end
   end
 

@@ -77,7 +77,6 @@ describe Fred do
     fs_processor.rename_taxo_val("has_it_all", "jojo", "éèëê ûüú")
 
     content_new = File.read(tempfile)
-    p content_new
     content_new.includes?("éèëê ûüú").should eq(true)
     FileUtils.rm(tempfile)
   end
