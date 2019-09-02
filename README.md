@@ -14,17 +14,16 @@ of a markdown file.
 
 ## Installation
 
-<!--
 ### With Homebrew
 
-1. brew install mipmip/homebrew-crystal/crelease
--->
+1. brew tap mipmip/homebrew-crystal
+1. brew install fred
 
 ### From Source
 
 1. git clone https://github.com/mipmip/fred
 1. cd fred
-1. rake build
+1. make
 
 ## Usage
 

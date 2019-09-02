@@ -1,7 +1,9 @@
 # CHANGELOG
 
-## Fred 0.3.0 - Sep 1
+## Fred 0.3.1 - Sep 1
+- brew formula
 
+## Fred 0.3.0 - Sep 1
 - remame to Fred
 - travis ci
 - documentation in Engels
