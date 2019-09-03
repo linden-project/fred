@@ -1,9 +1,11 @@
 # CHANGELOG
 
+## Fred 0.3.1 - Sep 3
+- always output when executed with dryrun
+
 ## Fred 0.3.1 - Sep 2
 - fix malformed frontmatter
 - spec to test valid front matter
-
 
 ## Fred 0.3.1 - Sep 1
 - brew formula
