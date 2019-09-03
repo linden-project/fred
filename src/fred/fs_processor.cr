@@ -8,7 +8,7 @@ class FSProcessor
     @dryrun = false
     @dryrun = dryrun
 
-    if(@dryrun)
+    if (@dryrun)
       @only_output_when_changed = false
     else
       @only_output_when_changed = true
