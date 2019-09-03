@@ -1,9 +1,9 @@
 # CHANGELOG
 
-## Fred 0.3.1 - Sep 3
+## Fred 0.3.3 - Sep 3
 - always output when executed with dryrun
 
-## Fred 0.3.1 - Sep 2
+## Fred 0.3.2 - Sep 2
 - fix malformed frontmatter
 - spec to test valid front matter
 
