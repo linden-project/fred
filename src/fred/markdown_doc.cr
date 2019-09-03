@@ -1,9 +1,12 @@
 class MarkdownDoc
   getter changed
 
-  def initialize(infile : String)
+  def initialize(infile : String, only_output_when_changed : Bool)
     in_yaml_string = ""
     in_body_string = ""
+
+    @only_output_when_changed = false
+    @only_output_when_changed = only_output_when_changed
 
     @document_body = String.new
 
@@ -43,7 +46,7 @@ class MarkdownDoc
   end
 
   private def store_process_data(yaml_processor)
-    if yaml_processor.replaced_any
+    if yaml_processor.replaced_any || !@only_output_when_changed
       @front_matter_as_yaml = yaml_processor.front_matter_as_yaml
       @changed = true
       @doc_stats = yaml_processor.process_stats

@@ -8,6 +8,12 @@ class FSProcessor
     @dryrun = false
     @dryrun = dryrun
 
+    if(@dryrun)
+      @only_output_when_changed = false
+    else
+      @only_output_when_changed = true
+    end
+
     @verbose = false
     @verbose = verbose
 
@@ -67,19 +73,19 @@ class FSProcessor
   end
 
   private def replace_1st_level_vars_in_file(in_file)
-    markdown_doc = MarkdownDoc.new(in_file)
+    markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
     markdown_doc.replace_1st_level_frontmatter_variables
     output_markdown_doc(in_file, markdown_doc)
   end
 
   private def rename_taxo_key_in_file(in_file, key_old, key_new)
-    markdown_doc = MarkdownDoc.new(in_file)
+    markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
     markdown_doc.rename_taxo_key(key_old, key_new)
     output_markdown_doc(in_file, markdown_doc)
   end
 
   private def rename_taxo_val_in_file(in_file, key, val_old, val_new)
-    markdown_doc = MarkdownDoc.new(in_file)
+    markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
     markdown_doc.rename_taxo_val(key, val_old, val_new)
     output_markdown_doc(in_file, markdown_doc)
   end
