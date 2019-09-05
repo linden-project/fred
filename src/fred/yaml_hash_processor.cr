@@ -139,8 +139,6 @@ class YamlHashProcessor
     return new_string
   end
 
-
-
   private def _node_replace_taxo_key(node : YAML::Any, taxo_key_old, taxo_key_new)
     case node.raw
     when String
