@@ -7,9 +7,9 @@ describe Fred do
     FileUtils.cp "./spec/testfiles/markdown_with_include.md", tempfile
     FileUtils.cp "./spec/testfiles/frontmatter_import_2.yml", "/tmp/frontmatter_import_2.yml"
 
-    dryrun = true
+    dryrun = false
     recursive = true
-    verbose = true
+    verbose = false
 
     fs_processor = FSProcessor.new(tempfile, dryrun, recursive, verbose)
     fs_processor.process_all_specials

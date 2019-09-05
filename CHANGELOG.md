@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## Fred 0.3.4 - vr 06 sep 2019
+- function to import yaml templates in front matter using $INCLUDE
+
 ## Fred 0.3.3 - Sep 3
 - always output when executed with dryrun
 

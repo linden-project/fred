@@ -1,5 +1,4 @@
 require "./spec_helper"
-p "unicode"
 
 describe Fred do
   it "should rename tax val to special char" do

@@ -39,7 +39,7 @@ describe Fred do
     FileUtils.rm_r(tempfile)
   end
 
-  it "should NOT rename tax key and vals in a directory" do
+  it "should NOT rename tax key and vals when dryrun = true" do
     tempfile = temp_filename
 
     FileUtils.cp_r "./spec/testfiles", tempfile
@@ -65,7 +65,7 @@ describe Fred do
 
     dryrun = false
     recursive = true
-    verbose = true
+    verbose = false
 
     fs_processor = FSProcessor.new(tempfile, dryrun, recursive, verbose)
     fs_processor.replace_1st_level_vars

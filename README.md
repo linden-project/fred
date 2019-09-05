@@ -89,22 +89,24 @@ nmap ,t :AsyncRun /usr/bin/fred replace_1st_level_vars -d % > /tmp/pandotemp.md 
 
 ## Syntax
 
-| Tag     | Arguments     | Example             | Description                                                                                                       |
-|---------|---------------|---------------------|-------------------------------------------------------------------------------------------------------------------|
-| $FORMAT | Format string | !Format {foo} {bar} | Replaces ```{foo}``` and ```{bar}``` with the values of the 1st level yaml keys ```foo:``` and ```bar:```         |
+| Tag      | Arguments                  | Example                                    | Description                                                                                                               |
+|----------|----------------------------|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| $FORMAT  | String with vars inside {} | $FORMAT written by {author1} and {author2} | Replaces ```{author1}``` and ```{author2}``` with the values of the 1st level yaml keys ```author1:``` and ```author2:``` |
+| $INCLUDE | Include path to YAML file  | $INCLUDE ./blog_layout_config.yml          | Imports external YAML at the include location. Path can be absolute or relative to the markdown file                      |
 
 ## Development
 
 ### Run Specs
 
 ```
-rake spec
+make run_spec
+make run_coverage
 ```
 
 ### Build
 
 ```
-rake build
+make build
 ```
 
 
