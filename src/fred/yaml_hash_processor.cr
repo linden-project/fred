@@ -33,7 +33,7 @@ class YamlHashProcessor
   end
 
   def process_node_replace_includes(directory)
-    @front_matter_as_yaml = _node_replace_includes(@front_matter_as_yaml,directory)
+    @front_matter_as_yaml = _node_replace_includes(@front_matter_as_yaml, directory)
   end
 
   def process_node_replace_taxo_val(taxo_key, taxo_val_old, taxo_val_new)
@@ -87,7 +87,7 @@ class YamlHashProcessor
   private def _node_replace_includes(node : YAML::Any, directory)
     case node.raw
     when String
-      #return node
+      # return node
       return string_value_replace_includes(node.as_s, directory)
     when Array(YAML::Any)
       new_node = [] of YAML::Any
@@ -112,7 +112,7 @@ class YamlHashProcessor
     m = in_string.match(/^\$INCLUDE\ (.*)/)
     if m
       begin
-        yaml_path = File.expand_path(m[1],directory)
+        yaml_path = File.expand_path(m[1], directory)
         include_yaml = File.open(yaml_path) { |file| YAML.parse(file) }
         @replaced_include_yaml_num += 1
         return include_yaml
@@ -120,11 +120,9 @@ class YamlHashProcessor
         p "ERROR: Could not process [#{in_string}], from dir [#{directory}]"
         YAML::Any.new(in_string)
       end
-
     else
       YAML::Any.new(in_string)
     end
-
   end
 
   private def string_value_replace_vars(in_string : String)

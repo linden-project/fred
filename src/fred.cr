@@ -79,7 +79,6 @@ module Fred
         end
       end
 
-
       sub "rename_taxo_key" do
         desc "rename a taxo string val"
 

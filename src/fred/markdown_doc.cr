@@ -58,11 +58,11 @@ class MarkdownDoc
       @front_matter_as_yaml = yaml_processor.front_matter_as_yaml
       @changed = true
 
-      @doc_stats.each do |k,v|
+      @doc_stats.each do |k, v|
         @doc_stats[k] = v + yaml_processor.process_stats[k]
       end
 
-      #@doc_stats = yaml_processor.process_stats
+      # @doc_stats = yaml_processor.process_stats
     end
   end
 
