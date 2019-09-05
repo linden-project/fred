@@ -111,10 +111,15 @@ class YamlHashProcessor
   private def string_value_replace_includes(in_string : String, directory)
     m = in_string.match(/^\$INCLUDE\ (.*)/)
     if m
-      yaml_path = File.expand_path(m[1],directory)
-      include_yaml = File.open(yaml_path) { |file| YAML.parse(file) }
-      @replaced_include_yaml_num += 1
-      return include_yaml
+      begin
+        yaml_path = File.expand_path(m[1],directory)
+        include_yaml = File.open(yaml_path) { |file| YAML.parse(file) }
+        @replaced_include_yaml_num += 1
+        return include_yaml
+      rescue
+        p "ERROR: Could not process [#{in_string}], from dir [#{directory}]"
+        YAML::Any.new(in_string)
+      end
 
     else
       YAML::Any.new(in_string)

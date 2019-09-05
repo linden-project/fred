@@ -4,4 +4,4 @@ incl_key3:
     - chateau
     - mon
     - ami
-    - {author}
+    - $FORMAT written by {author}

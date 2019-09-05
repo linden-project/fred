@@ -12,8 +12,7 @@ describe Fred do
     verbose = true
 
     fs_processor = FSProcessor.new(tempfile, dryrun, recursive, verbose)
-    fs_processor.replace_includes
-    fs_processor.replace_1st_level_vars
+    fs_processor.process_all_specials
 
     unless dryrun
       content_new = File.read(tempfile)

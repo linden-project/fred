@@ -22,6 +22,25 @@ module Fred
         end
       end
 
+      sub "process_frontmatter_specials" do
+        desc "replace $FORMAT and $INCLUDE inside the front matter"
+
+        option "-d", "--dryrun", type: Bool, desc: "Dry run. Output only"
+        option "-r", "--recursive", type: Bool, desc: "Path is a directory. All .md files in the directory will be processed"
+        option "-v", "--verbose", type: Bool, desc: "Be verbose"
+
+        usage "fred process_frontmatter_specials [PATH]"
+        run do |opts, args|
+          if args.size == 1
+            path = args[0]
+            fs_processor = FSProcessor.new(path, opts.dryrun, opts.recursive, opts.verbose)
+            fs_processor.process_all_specials
+          else
+            puts opts.help_string
+          end
+        end
+      end
+
       sub "replace_1st_level_vars" do
         desc "replace 1st level variables in inside the front matter"
 

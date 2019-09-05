@@ -34,6 +34,19 @@ class FSProcessor
     end
   end
 
+  def process_all_specials
+    @files.each do |in_file|
+      begin
+        process_all_specials_in_file(in_file)
+      rescue
+        p in_file + " has invalid Front Matter."
+      end
+    end
+
+    report_command_stats if @verbose
+  end
+
+
   def replace_1st_level_vars
     @files.each do |in_file|
       begin
@@ -85,6 +98,14 @@ class FSProcessor
     end
   end
 
+  private def process_all_specials_in_file(in_file)
+    markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
+    markdown_doc.replace_includes_in_frontmatter
+    markdown_doc.replace_1st_level_frontmatter_variables
+    output_markdown_doc(in_file, markdown_doc)
+  end
+
+
   private def replace_1st_level_vars_in_file(in_file)
     markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
     markdown_doc.replace_1st_level_frontmatter_variables
@@ -96,6 +117,10 @@ class FSProcessor
     markdown_doc.replace_includes_in_frontmatter
     output_markdown_doc(in_file, markdown_doc)
   end
+
+
+
+
 
   private def rename_taxo_key_in_file(in_file, key_old, key_new)
     markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
