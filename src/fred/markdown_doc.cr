@@ -25,11 +25,19 @@ class MarkdownDoc
     @doc_stats[:replaced_keys_num] = 0
     @doc_stats[:replaced_vals_num] = 0
     @doc_stats[:replaced_formats_vars_num] = 0
+    @doc_stats[:replaced_include_yaml_num] = 0
   end
 
   def replace_1st_level_frontmatter_variables
     yaml_processor = YamlHashProcessor.new(@front_matter_as_yaml)
     yaml_processor.process_node_replace_vars
+    store_process_data(yaml_processor)
+  end
+
+  def replace_includes_in_frontmatter
+    yaml_processor = YamlHashProcessor.new(@front_matter_as_yaml)
+    infile_directory = File.dirname(@infile)
+    yaml_processor.process_node_replace_includes(infile_directory)
     store_process_data(yaml_processor)
   end
 
@@ -95,7 +103,8 @@ class MarkdownDoc
     print "Stats for " + @infile + "\n"
     print "  Replaced YAML keys: " + @doc_stats[:replaced_keys_num].to_s + "\n"
     print "  Replaced YAML vals: " + @doc_stats[:replaced_vals_num].to_s + "\n"
-    print "  Replaced $FORMATS in YAML vals: " + @doc_stats[:replaced_formats_vars_num].to_s + "\n"
+    print "  Replaced $FORMAT in YAML scalars: " + @doc_stats[:replaced_formats_vars_num].to_s + "\n"
+    print "  Replaced $INCLUDE in YAML scalars: " + @doc_stats[:replaced_include_yaml_num].to_s + "\n"
     print "\n"
   end
 

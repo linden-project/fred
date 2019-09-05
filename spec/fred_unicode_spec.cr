@@ -2,10 +2,6 @@ require "./spec_helper"
 p "unicode"
 
 describe Fred do
-  it "should print VERSION" do
-    puts Fred::VERSION
-  end
-
   it "should rename tax val to special char" do
     dryrun = false
     recursive = false

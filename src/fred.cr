@@ -41,6 +41,26 @@ module Fred
         end
       end
 
+      sub "replace_includes" do
+        desc "replace includes inside the front matter"
+
+        option "-d", "--dryrun", type: Bool, desc: "Dry run. Output only"
+        option "-r", "--recursive", type: Bool, desc: "Path is a directory. All .md files in the directory will be processed"
+        option "-v", "--verbose", type: Bool, desc: "Be verbose"
+
+        usage "fred replace_includes [PATH] [options]"
+        run do |opts, args|
+          if args.size == 1
+            path = args[0]
+            fs_processor = FSProcessor.new(path, opts.dryrun, opts.recursive, opts.verbose)
+            fs_processor.replace_includes
+          else
+            puts opts.help_string
+          end
+        end
+      end
+
+
       sub "rename_taxo_key" do
         desc "rename a taxo string val"
 

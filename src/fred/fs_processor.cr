@@ -46,6 +46,19 @@ class FSProcessor
     report_command_stats if @verbose
   end
 
+  def replace_includes
+    @files.each do |in_file|
+      begin
+        replace_includes_in_file(in_file)
+      rescue
+        p in_file + " has invalid Front Matter."
+      end
+    end
+
+    report_command_stats if @verbose
+  end
+
+
   def rename_taxo_key(key_old, key_new)
     @files.each do |in_file|
       begin
@@ -75,6 +88,12 @@ class FSProcessor
   private def replace_1st_level_vars_in_file(in_file)
     markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
     markdown_doc.replace_1st_level_frontmatter_variables
+    output_markdown_doc(in_file, markdown_doc)
+  end
+
+  private def replace_includes_in_file(in_file)
+    markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
+    markdown_doc.replace_includes_in_frontmatter
     output_markdown_doc(in_file, markdown_doc)
   end
 

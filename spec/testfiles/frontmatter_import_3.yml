@@ -1,0 +1,6 @@
+incl_key3:
+  c_string: bonjour
+  c_list:
+    - chateau
+    - mon
+    - ami
