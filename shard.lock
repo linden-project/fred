@@ -1,12 +1,12 @@
 version: 1.0
 shards:
-  camel_yaml:
-    github: mosop/camel_yaml
-    version: 0.2.2
-
   clim:
     github: at-grandpa/clim
     version: 0.8.1
+
+  coverage:
+    github: anykeyh/crystal-coverage
+    commit: e781f8c70812c9dc4d5bf1d1e396e1f5c9ef1051
 
   front_matter:
     github: chris-huxtable/front_matter.cr

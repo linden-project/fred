@@ -10,6 +10,9 @@ build:
 run:
 	$(OUT_DIR)/fred
 
+install:
+	cp $(OUT_DIR)/fred /usr/local/bin/
+
 clean:
 	rm -rf  bin/fred* docs tmp *.dwarf *.tmp
 
