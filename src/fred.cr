@@ -22,6 +22,21 @@ module Fred
         end
       end
 
+      sub "echo" do
+        desc "echo display one node by key"
+        usage "fred echo [key] [PATH]"
+        run do |opts, args|
+          if args.size == 2
+            path = args[1]
+            markdown_doc = MarkdownDoc.new(path, true)
+            print markdown_doc.front_matter_as_yaml[args[0]]
+          else
+            puts opts.help_string
+          end
+        end
+      end
+
+
       sub "process_frontmatter_specials" do
         desc "replace $FORMAT and $INCLUDE inside the front matter"
 

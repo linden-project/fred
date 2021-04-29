@@ -1,5 +1,6 @@
 class MarkdownDoc
   getter changed
+  getter front_matter_as_yaml
 
   def initialize(infile : String, only_output_when_changed : Bool)
     in_yaml_string = ""
