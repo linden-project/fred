@@ -8,16 +8,18 @@ targets:
   fred:
     main: src/fred.cr
 
-crystal: 0.30.1
+crystal: ">= 0.30.1, < 2.0.0"
 
 license: MIT
 
 dependencies:
   clim:
     github: at-grandpa/clim
-    version: 0.8.1
   front_matter:
-    github: chris-huxtable/front_matter.cr
+    #github: chris-huxtable/front_matter.cr
+    github: mipmip/front_matter.cr
+    branch: master
 development_dependencies:
   coverage:
-    github: anykeyh/crystal-coverage
+    #github: anykeyh/crystal-coverage
+    github: lbguilherme/crystal-coverage
