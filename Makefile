@@ -10,21 +10,15 @@ build:
 run:
 	$(OUT_DIR)/fred
 
-install:
-	cp $(OUT_DIR)/fred /usr/local/bin/
+install: build
+	mkdir -p $(PREFIX)/bin
+	cp ./bin/fred $(PREFIX)/bin
 
 clean:
 	rm -rf  bin/fred* docs tmp *.dwarf *.tmp
 
 clean_all:
 	rm -rf  $(OUT_DIR) .crystal .shards lib docs tmp *.dwarf *.tmp
-
-link:
-	@ln -s `pwd`/bin/fred /usr/local/bin/fred
-
-force_link:
-	@echo "Symlinking `pwd`/bin/fred to /usr/local/bin/fred"
-	@ln -sf `pwd`/bin/fred /usr/local/bin/fred
 
 run_coverage:
 	@bin/crystal-coverage spec/spec_all.cr
