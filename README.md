@@ -21,7 +21,7 @@ of a markdown file.
 
 ### From Source
 
-1. git clone https://github.com/mipmip/fred
+1. git clone https://github.com/linden-project/fred
 1. cd fred
 1. make
 
