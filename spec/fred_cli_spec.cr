@@ -1,12 +1,12 @@
 require "./spec_helper"
 
 describe Fred do
-  #  it "should test command line rename_taxo_key" do
+  #  it "should test command line rename_front_matter_key" do
   #
   #    tempfile = temp_filename
   #    FileUtils.cp "./spec/testfiles/markdown_2.md", tempfile
   #
-  #    command = "/usr/local/bin/crystal run ./src/fred.cr rename_taxo_key key1 key13new " + tempfile
+  #    command = "/usr/local/bin/crystal run ./src/fred.cr rename_front_matter_key key1 key13new " + tempfile
   #    #io = IO::Memory.new
   #
   #    cmd = "sh"

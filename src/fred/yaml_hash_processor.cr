@@ -6,6 +6,7 @@ class YamlHashProcessor
   getter front_matter_as_yaml : YAML::Any
 
   def initialize(front_matter_as_yaml : YAML::Any)
+    @add_key_val_num = 0
     @replaced_keys_num = 0
     @replaced_vals_num = 0
     @replaced_formats_vars_num = 0
@@ -36,16 +37,21 @@ class YamlHashProcessor
     @front_matter_as_yaml = _node_replace_includes(@front_matter_as_yaml, directory)
   end
 
-  def process_node_replace_taxo_val(taxo_key, taxo_val_old, taxo_val_new)
-    @front_matter_as_yaml = _node_replace_taxo_val(@front_matter_as_yaml, taxo_key, taxo_val_old, taxo_val_new)
+  def process_node_replace_front_matter_val(front_matter_key, front_matter_val_old, front_matter_val_new)
+    @front_matter_as_yaml = _node_replace_front_matter_val(@front_matter_as_yaml, front_matter_key, front_matter_val_old, front_matter_val_new)
   end
 
-  def process_node_replace_taxo_key(taxo_key_old, taxo_key_new)
-    @front_matter_as_yaml = _node_replace_taxo_key(@front_matter_as_yaml, taxo_key_old, taxo_key_new)
+  def process_node_add_key_value(key, val)
+    @front_matter_as_yaml = _node_add_key_val(@front_matter_as_yaml, key, val)
+  end
+
+  def process_node_replace_front_matter_key(front_matter_key_old, front_matter_key_new)
+    @front_matter_as_yaml = _node_replace_front_matter_key(@front_matter_as_yaml, front_matter_key_old, front_matter_key_new)
   end
 
   def process_stats
     proc_stats = {} of Symbol => Int32
+    proc_stats[:add_key_val_num] = @add_key_val_num
     proc_stats[:replaced_keys_num] = @replaced_keys_num
     proc_stats[:replaced_vals_num] = @replaced_vals_num
     proc_stats[:replaced_formats_vars_num] = @replaced_formats_vars_num
@@ -55,6 +61,7 @@ class YamlHashProcessor
   end
 
   def replaced_any
+    return true if @add_key_val_num > 0
     return true if @replaced_keys_num > 0
     return true if @replaced_vals_num > 0
     return true if @replaced_formats_vars_num > 0
@@ -142,24 +149,43 @@ class YamlHashProcessor
     return new_string
   end
 
-  private def _node_replace_taxo_key(node : YAML::Any, taxo_key_old, taxo_key_new)
+  private def _node_add_key_val(node : YAML::Any, front_matter_key, front_matter_val)
+    case node.raw
+    when Hash(YAML::Any, YAML::Any)
+      new_node = {} of YAML::Any => YAML::Any
+
+      node.as_h.each do |key, value|
+        if key.as_s == front_matter_key
+          raise "error: new key already exists"
+        end
+        new_node[YAML::Any.new(key.as_s)] = value
+      end
+      new_node[YAML::Any.new(front_matter_key)] = YAML::Any.new(front_matter_val)
+      @add_key_val_num += 1
+      return YAML::Any.new(new_node)
+    end
+
+    return node
+  end
+
+  private def _node_replace_front_matter_key(node : YAML::Any, front_matter_key_old, front_matter_key_new)
     case node.raw
     when String
       return node
     when Array(YAML::Any)
       new_node = [] of YAML::Any
       node.as_a.each do |value|
-        new_node << _node_replace_taxo_key(value, taxo_key_old, taxo_key_new)
+        new_node << _node_replace_front_matter_key(value, front_matter_key_old, front_matter_key_new)
       end
       return YAML::Any.new(new_node)
     when Hash(YAML::Any, YAML::Any)
       new_node = {} of YAML::Any => YAML::Any
       node.as_h.each do |key, value|
-        if key.as_s == taxo_key_old
+        if key.as_s == front_matter_key_old
           @replaced_keys_num += 1
-          new_node[YAML::Any.new(taxo_key_new)] = _node_replace_taxo_key(value, taxo_key_old, taxo_key_new)
+          new_node[YAML::Any.new(front_matter_key_new)] = _node_replace_front_matter_key(value, front_matter_key_old, front_matter_key_new)
         else
-          new_node[YAML::Any.new(key.as_s)] = _node_replace_taxo_key(value, taxo_key_old, taxo_key_new)
+          new_node[YAML::Any.new(key.as_s)] = _node_replace_front_matter_key(value, front_matter_key_old, front_matter_key_new)
         end
       end
 
@@ -171,24 +197,24 @@ class YamlHashProcessor
     node
   end
 
-  private def _node_replace_taxo_val(node : YAML::Any, taxo_key, taxo_val_old, taxo_val_new)
+  private def _node_replace_front_matter_val(node : YAML::Any, front_matter_key, front_matter_val_old, front_matter_val_new)
     case node.raw
     when String
       return node
     when Array(YAML::Any)
       new_node = [] of YAML::Any
       node.as_a.each do |value|
-        new_node << _node_replace_taxo_val(value, taxo_key, taxo_val_old, taxo_val_new)
+        new_node << _node_replace_front_matter_val(value, front_matter_key, front_matter_val_old, front_matter_val_new)
       end
       return YAML::Any.new(new_node)
     when Hash(YAML::Any, YAML::Any)
       new_node = {} of YAML::Any => YAML::Any
       node.as_h.each do |key, value|
-        if key.as_s == taxo_key && value.as_s == taxo_val_old
-          new_node[YAML::Any.new(key.as_s)] = YAML::Any.new(taxo_val_new)
+        if key.as_s == front_matter_key && value.as_s == front_matter_val_old
+          new_node[YAML::Any.new(key.as_s)] = YAML::Any.new(front_matter_val_new)
           @replaced_vals_num += 1
         else
-          new_node[YAML::Any.new(key.as_s)] = _node_replace_taxo_val(value, taxo_key, taxo_val_old, taxo_val_new)
+          new_node[YAML::Any.new(key.as_s)] = _node_replace_front_matter_val(value, front_matter_key, front_matter_val_old, front_matter_val_new)
         end
       end
 

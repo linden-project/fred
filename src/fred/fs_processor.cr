@@ -46,6 +46,19 @@ class FSProcessor
     report_command_stats if @verbose
   end
 
+
+  def add_key_val(key,val)
+    @files.each do |in_file|
+      begin
+        add_key_val_in_file(in_file, key, val)
+      rescue e
+        print "\nError: " + e.to_s + " in " + in_file + "\n"
+      end
+    end
+
+    report_command_stats if @verbose
+  end
+
   def replace_1st_level_vars
     @files.each do |in_file|
       begin
@@ -70,10 +83,10 @@ class FSProcessor
     report_command_stats if @verbose
   end
 
-  def rename_taxo_key(key_old, key_new)
+  def rename_front_matter_key(key_old, key_new)
     @files.each do |in_file|
       begin
-        rename_taxo_key_in_file(in_file, key_old, key_new)
+        rename_front_matter_key_in_file(in_file, key_old, key_new)
       rescue
         p in_file + " has invalid Front Matter."
       end
@@ -82,13 +95,13 @@ class FSProcessor
     report_command_stats if @verbose
   end
 
-  def rename_taxo_val(key, val_old, val_new)
+  def rename_front_matter_val(key, val_old, val_new)
     @files.each do |in_file|
       begin
         in_file = File.expand_path(in_file)
 
         if File.file?(in_file)
-          rename_taxo_val_in_file(in_file, key, val_old, val_new)
+          rename_front_matter_val_in_file(in_file, key, val_old, val_new)
         end
       rescue
         p in_file + " has invalid Front Matter."
@@ -100,6 +113,12 @@ class FSProcessor
     markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
     markdown_doc.replace_includes_in_frontmatter
     markdown_doc.replace_1st_level_frontmatter_variables
+    output_markdown_doc(in_file, markdown_doc)
+  end
+
+  private def add_key_val_in_file(in_file, key, val)
+    markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
+    markdown_doc.add_key_val_to_frontmatter(key, val)
     output_markdown_doc(in_file, markdown_doc)
   end
 
@@ -115,15 +134,15 @@ class FSProcessor
     output_markdown_doc(in_file, markdown_doc)
   end
 
-  private def rename_taxo_key_in_file(in_file, key_old, key_new)
+  private def rename_front_matter_key_in_file(in_file, key_old, key_new)
     markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
-    markdown_doc.rename_taxo_key(key_old, key_new)
+    markdown_doc.rename_front_matter_key(key_old, key_new)
     output_markdown_doc(in_file, markdown_doc)
   end
 
-  private def rename_taxo_val_in_file(in_file, key, val_old, val_new)
+  private def rename_front_matter_val_in_file(in_file, key, val_old, val_new)
     markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
-    markdown_doc.rename_taxo_val(key, val_old, val_new)
+    markdown_doc.rename_front_matter_val(key, val_old, val_new)
     output_markdown_doc(in_file, markdown_doc)
   end
 

@@ -13,8 +13,8 @@ describe Fred do
     tempfile = temp_filename
     FileUtils.cp "./spec/testfiles/markdown_2.md", tempfile
     fs_processor = FSProcessor.new(tempfile, dryrun, recursive, verbose)
-    fs_processor.rename_taxo_val("key1", "val_old", "val_new")
-    fs_processor.rename_taxo_key("key2", "key2new")
+    fs_processor.rename_front_matter_val("key1", "val_old", "val_new")
+    fs_processor.rename_front_matter_key("key2", "key2new")
 
     content_new = File.read(tempfile)
     content_new.includes?("val_new").should eq(true)
@@ -31,7 +31,7 @@ describe Fred do
     verbose = false
 
     fs_processor = FSProcessor.new(tempfile, dryrun, recursive, verbose)
-    fs_processor.rename_taxo_val("key1", "val_old", "val_new")
+    fs_processor.rename_front_matter_val("key1", "val_old", "val_new")
 
     content_new = File.read(tempfile + "/markdown_2.md")
     content_new.includes?("val_new").should eq(true)
@@ -49,8 +49,8 @@ describe Fred do
     verbose = false
 
     fs_processor = FSProcessor.new(tempfile, dryrun, recursive, verbose)
-    fs_processor.rename_taxo_val("key1", "val_old", "val_new")
-    fs_processor.rename_taxo_key("key2", "key2new")
+    fs_processor.rename_front_matter_val("key1", "val_old", "val_new")
+    fs_processor.rename_front_matter_key("key2", "key2new")
 
     content_new = File.read(tempfile + "/markdown_2.md")
     content_new.includes?("val_new").should eq(false)
