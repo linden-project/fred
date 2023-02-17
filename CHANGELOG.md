@@ -1,4 +1,9 @@
 # CHANGELOG
+## Next
+
+- rename taxo to front-matter everywhere
+- feature: add_key_val
+- make empty yaml if not exists
 
 ## Fred 0.3.4 - vr 06 sep 2019
 - function to import yaml templates in front matter using $INCLUDE
