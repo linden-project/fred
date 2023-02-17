@@ -47,10 +47,10 @@ class FSProcessor
   end
 
 
-  def add_key_val(key,val)
+  def set_key_val(key,val)
     @files.each do |in_file|
       begin
-        add_key_val_in_file(in_file, key, val)
+        set_key_val_in_file(in_file, key, val)
       rescue e
         print "\nError: " + e.to_s + " in " + in_file + "\n"
       end
@@ -116,9 +116,9 @@ class FSProcessor
     output_markdown_doc(in_file, markdown_doc)
   end
 
-  private def add_key_val_in_file(in_file, key, val)
+  private def set_key_val_in_file(in_file, key, val)
     markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
-    markdown_doc.add_key_val_to_frontmatter(key, val)
+    markdown_doc.set_key_val_to_frontmatter(key, val)
     output_markdown_doc(in_file, markdown_doc)
   end
 

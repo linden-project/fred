@@ -62,8 +62,8 @@ module Fred
         end
       end
 
-      sub "add_key_val" do
-        desc "Add key and value in the root Front Matter"
+      sub "set_key_val" do
+        desc "Set key and value in the root Front Matter"
 
         option "-d", "--dryrun", type: Bool, desc: "Dry run. Output only"
         option "-r", "--recursive", type: Bool, desc: "Path is a directory. All .md files in the directory will be processed"
@@ -74,20 +74,20 @@ module Fred
           type: String,
           required: true
         argument "front_matter_key",
-          desc: "key to add",
+          desc: "key to set",
           type: String,
           required: true
         argument "front_matter_val",
-          desc: "value for new key",
+          desc: "value for the key",
           type: String,
           required: true
 
-        usage "fred add_key_val [PATH] [FRONT_MATTER_KEY] [FRONT_MATTER_VAL]"
+        usage "fred set_key_val [PATH] [FRONT_MATTER_KEY] [FRONT_MATTER_VAL]"
 
         run do |opts, args|
           path = args.path
           fs_processor = FSProcessor.new(path, opts.dryrun, opts.recursive, opts.verbose)
-          fs_processor.add_key_val(args.front_matter_key, args.front_matter_val)
+          fs_processor.set_key_val(args.front_matter_key, args.front_matter_val)
         end
       end
 

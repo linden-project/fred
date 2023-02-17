@@ -21,7 +21,7 @@ class MarkdownDoc
     @infile = infile
     @changed = false
     @doc_stats = {} of Symbol => Int32
-    @doc_stats[:add_key_val_num] = 0
+    @doc_stats[:set_key_val_num] = 0
     @doc_stats[:replaced_keys_num] = 0
     @doc_stats[:replaced_vals_num] = 0
     @doc_stats[:replaced_formats_vars_num] = 0
@@ -29,9 +29,9 @@ class MarkdownDoc
   end
 
 
-  def add_key_val_to_frontmatter(front_matter_key, front_matter_val)
+  def set_key_val_to_frontmatter(front_matter_key, front_matter_val)
     yaml_processor = YamlHashProcessor.new(@front_matter_as_yaml)
-    yaml_processor.process_node_add_key_value(front_matter_key, front_matter_val)
+    yaml_processor.process_node_set_key_value(front_matter_key, front_matter_val)
     store_process_data(yaml_processor)
   end
 
@@ -113,7 +113,7 @@ class MarkdownDoc
   def report_doc_stats
     print "\n"
     print "Stats for " + @infile + "\n"
-    print "  Add YAML key/val combinations: " + @doc_stats[:add_key_val_num].to_s + "\n"
+    print "  Add YAML key/val combinations: " + @doc_stats[:set_key_val_num].to_s + "\n"
     print "  Replaced YAML keys: " + @doc_stats[:replaced_keys_num].to_s + "\n"
     print "  Replaced YAML vals: " + @doc_stats[:replaced_vals_num].to_s + "\n"
     print "  Replaced $FORMAT in YAML scalars: " + @doc_stats[:replaced_formats_vars_num].to_s + "\n"

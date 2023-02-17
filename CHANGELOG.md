@@ -1,8 +1,7 @@
 # CHANGELOG
-## Next
-
+## Fred 0.4.0 - vr 17 feb 2023
 - rename taxo to front-matter everywhere
-- feature: add_key_val
+- feature: set_key_val
 - make empty yaml if not exists
 
 ## Fred 0.3.4 - vr 06 sep 2019
