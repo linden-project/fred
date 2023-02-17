@@ -4,10 +4,6 @@ shards:
     git: https://github.com/at-grandpa/clim.git
     version: 0.17.1
 
-  coverage:
-    git: https://github.com/lbguilherme/crystal-coverage.git
-    version: 0.1.0+git.commit.4148e9e52bcf2b02fd529013855aa5dc1d12db4d
-
   front_matter:
     git: https://github.com/mipmip/front_matter.cr.git
     version: 0.1.2+git.commit.efe2a13396c4d100d08aefc1e3c39f9cb7c41a1d

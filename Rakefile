@@ -11,17 +11,6 @@ end
 
 task :default => :build
 
-desc "build"
-task :build do
-  puts "Current CRYSTAL_BIN is #{CRYSTAL_BIN}"
-  system "#{CRYSTAL_BIN} build src/#{PRODUCT_NAME}.cr"
-end
-
-desc "release"
-task :release do
-  puts "you should execute: crelease x.x.x"
-end
-
 desc "update and copy and git push brew_formula"
 task :brew_formula do
 

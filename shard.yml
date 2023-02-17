@@ -19,7 +19,7 @@ dependencies:
     #github: chris-huxtable/front_matter.cr
     github: mipmip/front_matter.cr
     branch: master
-development_dependencies:
-  coverage:
-    #github: anykeyh/crystal-coverage
-    github: lbguilherme/crystal-coverage
+    #development_dependencies:
+    #  coverage:
+    #    #github: anykeyh/crystal-coverage
+    #    github: lbguilherme/crystal-coverage
