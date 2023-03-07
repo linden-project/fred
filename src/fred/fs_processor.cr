@@ -46,6 +46,18 @@ class FSProcessor
     report_command_stats if @verbose
   end
 
+  def toggle_bool_val(key)
+    @files.each do |in_file|
+      begin
+        toggle_bool_val_in_file(in_file, key)
+      rescue e
+        print "\nError: " + e.to_s + " in " + in_file + "\n"
+      end
+    end
+
+    report_command_stats if @verbose
+  end
+
 
   def set_key_val(key,val)
     @files.each do |in_file|
@@ -75,6 +87,18 @@ class FSProcessor
     @files.each do |in_file|
       begin
         replace_includes_in_file(in_file)
+      rescue
+        p in_file + " has invalid Front Matter."
+      end
+    end
+
+    report_command_stats if @verbose
+  end
+
+  def unset_front_matter_key(key)
+    @files.each do |in_file|
+      begin
+        unset_front_matter_key_in_file(in_file, key)
       rescue
         p in_file + " has invalid Front Matter."
       end
@@ -116,6 +140,12 @@ class FSProcessor
     output_markdown_doc(in_file, markdown_doc)
   end
 
+  private def toggle_bool_val_in_file(in_file, key)
+    markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
+    markdown_doc.toggle_bool_val_to_frontmatter(key)
+    output_markdown_doc(in_file, markdown_doc)
+  end
+
   private def set_key_val_in_file(in_file, key, val)
     markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
     markdown_doc.set_key_val_to_frontmatter(key, val)
@@ -131,6 +161,12 @@ class FSProcessor
   private def replace_includes_in_file(in_file)
     markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
     markdown_doc.replace_includes_in_frontmatter
+    output_markdown_doc(in_file, markdown_doc)
+  end
+
+  private def unset_front_matter_key_in_file(in_file, key)
+    markdown_doc = MarkdownDoc.new(in_file, @only_output_when_changed)
+    markdown_doc.unset_front_matter_key(key)
     output_markdown_doc(in_file, markdown_doc)
   end
 

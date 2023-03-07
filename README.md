@@ -7,10 +7,15 @@ Fred is a cli utility for precisely editing YAML-nodes inside the front matter
 of a markdown file.
 
 ## Features
+
+- Unset key
 - Rename the key of a scalar node
-- Replace value of scalar node
+- Replace string value of scalar node
+- Toggle bool value of scalar node
 - Scaler node at 1st level are automatically defined as variable
 - Substitute variables inside scalar node when it's defined lines earlier
+- Recursive mode for processing files inside directories
+- Dry run mode
 
 ## Installation
 
@@ -28,23 +33,24 @@ of a markdown file.
 ## Usage
 
 ```bash
-  Usage:
-
-    fred help
 
   Options:
 
     --help                           Show this help.
-    -d, --dryrun                     Dry run. Output only [type:Bool]
-    -r, --recursive                  Path is a directory. All .md files in the directory will be processed [type:Bool]
-    -v, --verbose                    Be verbose [type:Bool]
 
   Sub Commands:
 
+    echo                     echo display one node by key
+    set_bool_val             Set boolean value for front matter key
+    set_string_val           Set string value for front matter key
+    unset_key                Remove key from front matter
+    replace_key              Find and replace key in front matter
+    replace_string_val       Find and replace a string value in front matter
+    toggle_bool_val          Toggle a bool value in front matter, if true set false, if false or missing set true
+    replace_1st_level_vars   replace variables found on 1st level in other levels in inside front matter
+    replace_includes         replace includes inside front matter
+    process_functions        replace $FORMAT and $INCLUDE inside front matter
     version                  version
-    replace_1st_level_vars   replace 1st level variables in inside the front matter
-    rename_taxo_key          rename a taxo string val
-    rename_taxo_val          rename a taxo string val in a single file
 ```
 
 ## Variable usage
@@ -108,7 +114,6 @@ make run_coverage
 ```
 make build
 ```
-
 
 ## Contributing
 

@@ -1,4 +1,12 @@
 # CHANGELOG
+
+## Fred 0.5.0 - di 7 maart 2023
+
+- BREAKING: renamed and reordered multiple commands
+- feature: unset_key
+- feature: toggle_bool_val
+- feature: set_bool_val, set_string_val
+
 ## Fred 0.4.0 - vr 17 feb 2023
 - rename taxo to front-matter everywhere
 - feature: set_key_val

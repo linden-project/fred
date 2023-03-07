@@ -21,6 +21,7 @@ class MarkdownDoc
     @infile = infile
     @changed = false
     @doc_stats = {} of Symbol => Int32
+    @doc_stats[:unset_keys_num] = 0
     @doc_stats[:set_key_val_num] = 0
     @doc_stats[:replaced_keys_num] = 0
     @doc_stats[:replaced_vals_num] = 0
@@ -28,6 +29,11 @@ class MarkdownDoc
     @doc_stats[:replaced_include_yaml_num] = 0
   end
 
+  def toggle_bool_val_to_frontmatter(front_matter_key)
+    yaml_processor = YamlHashProcessor.new(@front_matter_as_yaml)
+    yaml_processor.process_node_toggle_key_bool_value(front_matter_key)
+    store_process_data(yaml_processor)
+  end
 
   def set_key_val_to_frontmatter(front_matter_key, front_matter_val)
     yaml_processor = YamlHashProcessor.new(@front_matter_as_yaml)
@@ -45,6 +51,12 @@ class MarkdownDoc
     yaml_processor = YamlHashProcessor.new(@front_matter_as_yaml)
     infile_directory = File.dirname(@infile)
     yaml_processor.process_node_replace_includes(infile_directory)
+    store_process_data(yaml_processor)
+  end
+
+  def unset_front_matter_key(front_matter_key)
+    yaml_processor = YamlHashProcessor.new(@front_matter_as_yaml)
+    yaml_processor.process_node_unset_front_matter_key(front_matter_key)
     store_process_data(yaml_processor)
   end
 
@@ -114,6 +126,7 @@ class MarkdownDoc
     print "\n"
     print "Stats for " + @infile + "\n"
     print "  Add YAML key/val combinations: " + @doc_stats[:set_key_val_num].to_s + "\n"
+    print "  Unset YAML keys: " + @doc_stats[:unset_keys_num].to_s + "\n"
     print "  Replaced YAML keys: " + @doc_stats[:replaced_keys_num].to_s + "\n"
     print "  Replaced YAML vals: " + @doc_stats[:replaced_vals_num].to_s + "\n"
     print "  Replaced $FORMAT in YAML scalars: " + @doc_stats[:replaced_formats_vars_num].to_s + "\n"
