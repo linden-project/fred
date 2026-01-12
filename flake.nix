@@ -2,40 +2,56 @@
   description = "Nix development dependencies for crystal";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-22.11;
-    flake-utils.url = github:numtide/flake-utils;
-    crystal-flake.url = github:manveru/crystal-flake;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
   };
 
-  outputs = inputs:
+  outputs = { self, nixpkgs }:
     let
-      utils = inputs.flake-utils.lib;
+      systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
     in
-    utils.eachSystem
-      [
-        "x86_64-linux"
-      ]
-      (system:
+    {
+      packages = forAllSystems (system:
         let
-          nixpkgs = import inputs.nixpkgs {
+          pkgs = import nixpkgs {
             inherit system;
           };
-
-          crystalflake-pkg = inputs.crystal-flake.packages.${system};
         in
         {
+          fred = pkgs.crystal.buildCrystalPackage {
+            pname = "fred";
+            version = "0.5.0";
+            src = ./.;
 
-          devShells.default = nixpkgs.pkgs.mkShell {
-            buildInputs = with nixpkgs.pkgs; [
+            format = "shards";
+
+            shardsFile = ./shards.nix;
+
+            crystalBinaries.fred.src = "src/fred.cr";
+          };
+
+          default = self.packages.${system}.fred;
+        });
+
+      devShells = forAllSystems (system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+          };
+        in
+        {
+          default = pkgs.mkShell {
+            buildInputs = with pkgs; [
               crystal
               shards
             ];
 
-            nativeBuildInputs = with nixpkgs.pkgs; [
+            nativeBuildInputs = with pkgs; [
               crystal
               shards
             ];
           };
         });
+    };
 }
 
